@@ -3,7 +3,7 @@ class RefeicaosController < ApplicationController
 
   # GET /refeicaos or /refeicaos.json
   def index
-    @refeicaos = Refeicao.all
+    @refeicaos = Refeicao.paginate(:page => params[:page], :per_page=>5)
   end
 
   # GET /refeicaos/1 or /refeicaos/1.json
