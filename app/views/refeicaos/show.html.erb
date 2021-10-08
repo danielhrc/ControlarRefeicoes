@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @refeicao.tipo %>
+</p>
+
+<p>
+  <strong>Alimentos:</strong>
+  <%= @refeicao.alimentos %>
+</p>
+
+<p>
+  <strong>Sentimento:</strong>
+  <%= @refeicao.sentimento %>
+</p>
+
+<p>
+  <strong>Hora:</strong>
+  <%= @refeicao.hora %>
+</p>
+
+<%= link_to 'Edit', edit_refeicao_path(@refeicao) %> |
+<%= link_to 'Back', refeicaos_path %>

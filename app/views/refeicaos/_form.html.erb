@@ -1,0 +1,37 @@
+<%= form_with(model: refeicao) do |form| %>
+  <% if refeicao.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(refeicao.errors.count, "error") %> prohibited this refeicao from being saved:</h2>
+
+      <ul>
+        <% refeicao.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :tipo %>
+    <%= form.text_field :tipo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :alimentos %>
+    <%= form.text_field :alimentos %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sentimento %>
+    <%= form.text_field :sentimento %>
+  </div>
+
+  <div class="field">
+    <%= form.label :hora %>
+    <%= form.datetime_select :hora %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

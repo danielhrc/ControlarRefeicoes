@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tipo: MyString
+  alimentos: MyString
+  sentimento: MyString
+  hora: 2021-10-08 16:55:47
+
+two:
+  tipo: MyString
+  alimentos: MyString
+  sentimento: MyString
+  hora: 2021-10-08 16:55:47
