@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: ControlarRefeicoes_development
+  url: <%=Rails.application.credentials.db! %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: ControlarRefeicoes_test
+  url: <%=Rails.application.credentials.db! %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: ControlarRefeicoes_production
-  username: ControlarRefeicoes
-  password: <%= ENV['CONTROLARREFEICOES_DATABASE_PASSWORD'] %>
+  url: <%=Rails.application.credentials.db! %>
