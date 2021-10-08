@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :refeicaos
   devise_for :users
 
+
   get 'refeicoes', to: "refeicaos#index"
   get 'home/index'
   root to: "home#index"
