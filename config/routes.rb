@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
 
 
+  get 'refeicoes/excel', to: "refeicaos#export_excel"
   get 'refeicoes', to: "refeicaos#index"
   get 'home/index'
   root to: "home#index"

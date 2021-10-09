@@ -24,6 +24,9 @@ gem 'cancancan'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+gem 'caxlsx'
+gem 'caxlsx_rails'
+
 gem 'will_paginate'
 
 # Use Active Storage variant

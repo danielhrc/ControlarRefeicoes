@@ -1,13 +1,27 @@
+require 'json'
+require 'csv'
+
 class RefeicaosController < ApplicationController
   before_action :set_refeicao, only: %i[ show edit update destroy ]
 
   # GET /refeicaos or /refeicaos.json
   def index
-    @refeicaos = Refeicao.paginate(:page => params[:page], :per_page=>5)
+    @refeicaos = Refeicao.paginate(:page => params[:page], :per_page=>100)
   end
 
   # GET /refeicaos/1 or /refeicaos/1.json
   def show
+  end
+
+  def export_excel
+    @refs = Refeicao.all
+    respond_to do |format|
+      format.html
+      format.csv do
+        headers['Content-Disposition'] = "attachment; filename=\"refeicoes.csv\""
+        headers['Content-Type'] ||= 'text/csv'
+      end
+    end
   end
 
   # GET /refeicaos/new

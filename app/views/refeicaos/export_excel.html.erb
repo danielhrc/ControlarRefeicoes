@@ -1,0 +1,3 @@
+<%- @refs.each do |refeicao| -%>
+<%= CSV.generate_line([refeicao.tipo, refeicao.alimentos, refeicao.sentimento, refeicao.hora]) -%>
+<%- end -%>

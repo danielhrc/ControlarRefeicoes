@@ -2,8 +2,16 @@
 
 <h1>Refeições</h1>
 
+
+
+<div>
+  <% if can? :create, Refeicao %>
+    <%= button_to 'New Refeicao', { :action => "new" }, :method => :get %>
+  <% end %>
+</div>
+
 <table>
-  <thead>
+   <thead>
     <tr>
       <th>Tipo</th>
       <th>Alimentos</th>
@@ -33,9 +41,9 @@
 
 <br>
 
+<div>
+  <%= link_to 'Export to Excel', refeicoes_excel_path(format: :csv) %>
+</div>
 
-<% if can? :create, Refeicao %>
-  <%= link_to 'New Refeicao', new_refeicao_path %>
-<% end %>
 
 
