@@ -6,7 +6,7 @@ class RefeicaosController < ApplicationController
 
   # GET /refeicaos or /refeicaos.json
   def index
-    @refeicaos = Refeicao.paginate(:page => params[:page], :per_page=>100)
+    @refeicaos = Refeicao.paginate_by_sql("select * from refeicaos order by refeicaos.hora desc",:page => params[:page], :per_page=>10)
   end
 
   # GET /refeicaos/1 or /refeicaos/1.json
@@ -14,11 +14,11 @@ class RefeicaosController < ApplicationController
   end
 
   def export_excel
-    @refs = Refeicao.all
+    @refs = Refeicao.all.order(:hora)
     respond_to do |format|
       format.html
       format.csv do
-        headers['Content-Disposition'] = "attachment; filename=\"refeicoes.csv\""
+        headers['Content-Disposition'] = "attachment; filename=\"refeicoes #{DateTime.now}.csv\""
         headers['Content-Type'] ||= 'text/csv'
       end
     end
