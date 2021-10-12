@@ -72,6 +72,15 @@ class RefeicaosController < ApplicationController
 
   # GET /refeicaos/1/edit
   def edit
+    u_id = UserHasRefeicao.find_by_refeicao_id(@refeicao).user_id
+    unless u_id.nil?
+      if current_user.id.eql?(u_id)
+        # puts "#{Time.now}: User #{u_id} looked for refeicao ##{@refeicao.id}"
+      else
+        render json: 'nothing here'
+      end
+
+    end
   end
 
   # POST /refeicaos or /refeicaos.json
@@ -92,6 +101,15 @@ class RefeicaosController < ApplicationController
   # PATCH/PUT /refeicaos/1 or /refeicaos/1.json
   def update
     respond_to do |format|
+      u_id = UserHasRefeicao.find_by_refeicao_id(@refeicao).user_id
+      unless u_id.nil?
+        if current_user.id.eql?(u_id)
+          # puts "#{Time.now}: User #{u_id} looked for refeicao ##{@refeicao.id}"
+        else
+          render json: 'nothing here'
+        end
+
+      end
       if @refeicao.update(refeicao_params)
         format.html { redirect_to @refeicao, notice: "Refeicao was successfully updated." }
         format.json { render :show, status: :ok, location: @refeicao }
@@ -105,9 +123,19 @@ class RefeicaosController < ApplicationController
   # DELETE /refeicaos/1 or /refeicaos/1.json
   def destroy
     @userHasRef = UserHasRefeicao.find_by_refeicao_id(@refeicao)
+    u_id = UserHasRefeicao.find_by_refeicao_id(@refeicao).user_id
+    unless u_id.nil?
+      if current_user.id.eql?(u_id)
+        # puts "#{Time.now}: User #{u_id} looked for refeicao ##{@refeicao.id}"
+      else
+        render json: 'nothing here'
+      end
+
+    end
     if !@userHasRef.nil?
       @userHasRef.destroy
     end
+
     @refeicao.destroy
     respond_to do |format|
       format.html { redirect_to refeicaos_url, notice: "Refeicao was successfully destroyed." }
