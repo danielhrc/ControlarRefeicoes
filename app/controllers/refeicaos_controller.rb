@@ -6,7 +6,25 @@ class RefeicaosController < ApplicationController
 
   # GET /refeicaos or /refeicaos.json
   def index
-    @refeicaos = Refeicao.paginate_by_sql("select * from refeicaos order by refeicaos.hora desc",:page => params[:page], :per_page=>10)
+    @uHrs = UserHasRefeicao.where(user_id: current_user)
+
+    if !@uHrs.nil?
+      ids = []
+      @uHrs.each do |u|
+        ids << u.refeicao_id
+      end
+      if ids.length == 0
+        ids = [0]
+      end
+
+
+      @refeicaos = Refeicao.paginate_by_sql("select * from refeicaos where refeicaos.id in (#{ids.join(",")}) order by refeicaos.hora desc",:page => params[:page], :per_page=>10)
+
+      else @refeicaos = nil
+
+    end
+
+
   end
 
   # GET /refeicaos/1 or /refeicaos/1.json
@@ -27,6 +45,7 @@ class RefeicaosController < ApplicationController
   # GET /refeicaos/new
   def new
     @refeicao = Refeicao.new
+    UserHasRefeicao.create(user: current_user, refeicao: @refeicao)
   end
 
   # GET /refeicaos/1/edit
@@ -63,6 +82,10 @@ class RefeicaosController < ApplicationController
 
   # DELETE /refeicaos/1 or /refeicaos/1.json
   def destroy
+    @userHasRef = UserHasRefeicao.find_by_refeicao_id(@refeicao)
+    if !@userHasRef.nil?
+      @userHasRef.destroy
+    end
     @refeicao.destroy
     respond_to do |format|
       format.html { redirect_to refeicaos_url, notice: "Refeicao was successfully destroyed." }

@@ -1,5 +1,5 @@
 <%- headers = [' ','Hora', 'Tipo', 'Alimentos', 'Sentimento'] -%>
 <%= CSV.generate_line headers %>
 <%- @refs.each do |refeicao| -%>
-<%= CSV.generate_line([' ', refeicao.hora, refeicao.tipo, refeicao.alimentos, refeicao.sentimento]) -%>
+<%= CSV.generate_line([' ', refeicao.hora, refeicao.tipo, refeicao.alimentos.gsub(',','+'), refeicao.sentimento]) -%>
 <%- end -%>

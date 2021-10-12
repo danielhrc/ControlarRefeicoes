@@ -1,0 +1,2 @@
+module UserHasRefeicaosHelper
+end
