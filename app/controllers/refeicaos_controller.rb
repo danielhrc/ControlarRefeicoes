@@ -18,7 +18,7 @@ class RefeicaosController < ApplicationController
       end
 
 
-      @refeicaos = Refeicao.paginate_by_sql("select * from refeicaos where refeicaos.id in (#{ids.join(",")}) order by refeicaos.hora desc",:page => params[:page], :per_page=>10)
+      @refeicaos = Refeicao.paginate_by_sql("select * from refeicaos where refeicaos.id in (#{ids.join(",")}) order by refeicaos.hora desc",:page => params[:page], :per_page=>5)
 
       else @refeicaos = nil
 
@@ -29,10 +29,32 @@ class RefeicaosController < ApplicationController
 
   # GET /refeicaos/1 or /refeicaos/1.json
   def show
+    u_id = UserHasRefeicao.find_by_refeicao_id(@refeicao).user_id
+    unless u_id.nil?
+      if current_user.id.eql?(u_id)
+        # puts "#{Time.now}: User #{u_id} looked for refeicao ##{@refeicao.id}"
+      else
+        render json: 'nothing here'
+      end
+
+    end
+
   end
 
   def export_excel
-    @refs = Refeicao.all.order(:hora)
+    @uHrs = UserHasRefeicao.where(user_id: current_user)
+
+    if !@uHrs.nil?
+      ids = []
+      @uHrs.each do |u|
+        ids << u.refeicao_id
+      end
+      if ids.length == 0
+        ids = [0]
+      end
+    end
+
+    @refs = Refeicao.find_by_sql("select * from refeicaos where refeicaos.id in (#{ids.join(",")}) order by refeicaos.hora")
     respond_to do |format|
       format.html
       format.csv do
