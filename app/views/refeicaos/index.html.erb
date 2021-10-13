@@ -4,14 +4,14 @@
 
 
 
-<div>
+<div style="padding-bottom: 20px">
   <% if can? :create, Refeicao %>
     <%= button_to 'New Refeicao', { :action => "new" }, :method => :get %>
   <% end %>
 </div>
 
-<table>
-   <thead>
+<table class="table table-sm ml-4">
+   <thead class="thead-dark">
     <tr>
       <th>Tipo</th>
       <th>Alimentos</th>
@@ -37,7 +37,10 @@
   </tbody>
 
 </table>
-<%= will_paginate @refeicaos %>
+<div class="digg_pagination">
+  <%= will_paginate @refeicaos %>
+</div>
+
 
 <br>
 
