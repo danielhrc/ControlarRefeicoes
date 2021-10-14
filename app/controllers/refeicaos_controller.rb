@@ -85,7 +85,7 @@ class RefeicaosController < ApplicationController
 
   # POST /refeicaos or /refeicaos.json
   def create
-    @refeicao = Refeicao.new(refeicao_params)
+
 
     respond_to do |format|
       if @refeicao.save
